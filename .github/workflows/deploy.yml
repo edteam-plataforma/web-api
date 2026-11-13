@@ -1,0 +1,9 @@
+# Todo lo demás vive en pipelines. Las variables del repo (nube, ambiente, tamaño) las pone la plataforma.
+on: [push, pull_request, workflow_dispatch]
+jobs:
+  deploy:
+    if: ${{ !github.event.repository.is_template }}
+    uses: edteam-plataforma/pipelines/.github/workflows/build.yml@v1
+    permissions: { contents: read, packages: write }
+    secrets: inherit
+    with: { service: "${{ github.event.repository.name }}", language: go, environment: "${{ vars.DEPLOY_ENVIRONMENT || 'dev' }}" }
