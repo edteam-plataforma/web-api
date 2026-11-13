@@ -6,7 +6,7 @@ RUN go mod download
 COPY . .
 RUN CGO_ENABLED=0 GOOS=linux go build -trimpath -ldflags="-s -w" -o server .
 
-FROM alpine:3.20
+FROM alpine:3.24
 
 # Imagen para Azure Container Apps (la publica pipelines/build.yml en GHCR) y para docker run local.
 # En AWS Lambda no se usa: el pipeline compila el binario "bootstrap" y lo sube en un zip.
